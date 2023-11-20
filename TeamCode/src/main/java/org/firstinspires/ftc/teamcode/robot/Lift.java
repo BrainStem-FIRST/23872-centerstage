@@ -117,7 +117,7 @@ public class Lift {
     }
 
     public void updateLevelCounter() {
-        heigh
+
     }
     public void levelCounter(){
         if (heightCounter == 0) {
