@@ -12,8 +12,8 @@ public class Depositor {
      HardwareMap hardwareMap;
 
      public DepositorServoState depositorServoState = DepositorServoState.RESTING;
-     private ServoImplEx LeftDepositor;
-    private ServoImplEx RightDepositor;
+     private final ServoImplEx LeftDepositor;
+    private final ServoImplEx RightDepositor;
 
     private static final double LEFT_DEPOSITOR_MAX = 1500;
     private static final double LEFT_DEPOSITOR_MIN = 500;
