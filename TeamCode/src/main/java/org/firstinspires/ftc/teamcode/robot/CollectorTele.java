@@ -6,27 +6,31 @@ import static org.firstinspires.ftc.teamcode.robot.CollectorTele.CollectorState.
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PwmControl;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.CachingMotor;
+import org.firstinspires.ftc.teamcode.utils.CachingServo;
+
+import java.security.SecureRandom;
 
 public class CollectorTele {
-    private final DcMotorEx collectorMotor;
-
+    private final DcMotorEx CollectorMotor;
+    public CollectorState collectorState = CollectorState.OFF;
     private HardwareMap hardwareMap;
-    private Telemetry telemetry;
+    private final Telemetry telemetry;
 
-    public CollectorTele(HardwareMap hardwareMap,Telemetry telemetry){
+    public CollectorTele(HardwareMap hardwareMap,Telemetry telemetry) {
         this.telemetry = telemetry;
+        this.hardwareMap = hardwareMap;
 
-        collectorMotor = new CachingMotor(hardwareMap.get(DcMotorEx.class, "Collector"));
+        CollectorMotor = new CachingMotor(hardwareMap.get(DcMotorEx.class, "Collector"));
     }
-
     public enum CollectorState {
         OFF, IN, OUT
     }
 
-    CollectorState collectorState = OFF;
 
     public void setCollectorState() {
         telemetry.addData("collectorState", collectorState);
@@ -58,11 +62,11 @@ public class CollectorTele {
         collectorState = CollectorState.OUT;
     }
 
-    private void collectorOff() {collectorMotor.setPower(0);}
+    private void collectorOff() {CollectorMotor.setPower(0);}
     private void collectorIn(){
-        collectorMotor.setPower(0.5);
+        CollectorMotor.setPower(0.5);
     }
-    private void collectorOut() { collectorMotor.setPower(-0.5);
+    private void collectorOut() { CollectorMotor.setPower(-0.5);
     }
 
 }

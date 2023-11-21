@@ -9,8 +9,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Lift {
 
     private DcMotorEx liftMotor;
-    private HardwareMap hardwareMap;
-    private Telemetry telemetry;
+    private final HardwareMap hardwareMap;
+    private final Telemetry telemetry;
 
 
     public LiftState liftState = LiftState.ZERO;
@@ -30,7 +30,7 @@ public class Lift {
     private int liftHeight;
 //    private final static int levelSixHeight = 600;
 //    private final static int levelSevenHeight = 700;
-//    private final static int levelEightHeig
+//    private final static int levelEightHeight
 //    ht = 800;
 
     public void setStateLevelZero() {
@@ -116,25 +116,29 @@ public class Lift {
 //    }
     }
 
-//    public void updateLevelCounter(){
-//        heightCounter += 218;
-//    }
-//    public void levelCounter(){
-//        if (heightCounter == 0) {
-//            liftState = LiftState.ZERO;
-//        } else if(heightCounter == 108){
-//            liftState = LiftState.ONE;
-//        } else if(heightCounter == 326){
-//            liftState = LiftState.TWO;
-//        } else if(heightCounter == 553){
-//            liftState = LiftState.THREE;
-//        } else if(heightCounter == 788){
-//            liftState = LiftState.FOUR;
-//        } else if(heightCounter == 1000){
-//            liftState = LiftState.FIVE;
-//        }
-//
-//    }
+    public void updateLevelCounter() {
+
+    }
+    public void levelCounter(){
+        if (heightCounter == 0) {
+            liftState = LiftState.ZERO;
+        } else if(heightCounter == 108){
+            //184
+            liftState = LiftState.ONE;
+        } else if(heightCounter == 326){
+            //466
+            liftState = LiftState.TWO;
+        } else if(heightCounter == 553){
+            //686
+            liftState = LiftState.THREE;
+        } else if(heightCounter == 788){
+            //932
+            liftState = LiftState.FOUR;
+        } else if(heightCounter == 1000){
+            liftState = LiftState.FIVE;
+        }
+
+    }
 
 
     public void setLiftDown () {

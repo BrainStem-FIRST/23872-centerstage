@@ -16,8 +16,18 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.TankDrive;
 import org.firstinspires.ftc.teamcode.robot.BrainSTEMRobot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @TeleOp (name = "TeleOp", group = "Robot")
 public class BrainSTEMTeleOp extends LinearOpMode {
+//    Map<String, Boolean> toggleMap = new HashMap<String, Boolean>() {{
+//        put(GAMEPAD_1_A_STATE, false);
+//        put(GAMEPAD_1_A_IS_PRESSED, false);
+//    }};
+
+//    String GAMEPAD_1_A_STATE = "GAMEPAD_1_A_STATE";
+//    String GAMEPAD_1_A_IS_PRESSED = "GAMEPAD_1_A_IS_PRESSED";
     @Override
     public void runOpMode() {
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
@@ -30,6 +40,7 @@ public class BrainSTEMTeleOp extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+//            setButtons();
             drive.setDrivePowers(new PoseVelocity2d(
                     new Vector2d(
                             -gamepad1.left_stick_y,
@@ -45,6 +56,11 @@ public class BrainSTEMTeleOp extends LinearOpMode {
             telemetry.addData("Tele Collector State", "TEST");
             telemetry.update();
 
+//            if(toggleMap.get(GAMEPAD_1_A_STATE)){
+//                robot.lift.setLiftHeight(108);
+//            } else {
+//                robot.lift.setLiftHeight(0);
+//            }
             if (gamepad1.right_trigger > 0.5) {
                 robot.collector.setCollectorIn();
                 robot.transfer.setTransferIn();
@@ -52,39 +68,69 @@ public class BrainSTEMTeleOp extends LinearOpMode {
                 robot.collector.setCollectorOut();
                 robot.transfer.setTransferOut();
             } else {
-               robot.collector.setCollectorOff();
-               robot.transfer.setTransferOff();
+                robot.collector.setCollectorOff();
+                robot.transfer.setTransferOff();
             }
 
-//            stickyButtonA.update(gamepad1.a);
-//            stickyButtonB.update(gamepad1.b);
-//
-//            if (stickyButtonA.getState()) {
-//                power += 0.005;
+            stickyButtonA.update(gamepad1.a);
+            stickyButtonB.update(gamepad1.b);
+
+            if (stickyButtonA.getState()) {
+                power += 0.01;
 //                robot.lift.levelCounter();
 //                robot.lift.updateLevelCounter();
-//            } else if (stickyButtonB.getState()) {
-//                power -= 0.005;
-//            }
+            } else if (stickyButtonB.getState()) {
+                power -= 0.01;
+            }
             robot.lift.setRawPower(power);
             telemetry.addData("power", power);
             telemetry.addData("lift encoder", robot.lift.getPosition());
-            telemetry.addData("lift state", robot.lift.liftState);
             if (gamepad2.x) {
                 robot.hanging.setHangingUnwind();
             } else if (gamepad2.y) {
                 robot.hanging.setHangingWind();
             }
 
-            if (gamepad1.left_bumper) {
+            if (gamepad2.left_bumper) {
                 robot.hanging.setLockState();
-            } else if (gamepad1.right_bumper) {
+            } else if (gamepad2.right_bumper) {
                 robot.hanging.setUnlockState();
-                }
+            }
+
+            if (gamepad1.left_bumper) {
+                robot.depositor.setHoldState();
+            } else if (gamepad1.right_bumper) {
+                robot.depositor.setDropState();
+            }
+            if (gamepad1.x) {
+                robot.depositor.setRestingState();
+            } else if (gamepad1.y) {
+                robot.depositor.setScoringState();
+            }
 
             robot.update();
 
         }
     }
-}
+//    private void setButtons() {
+//        toggleButton(GAMEPAD_1_A_STATE, GAMEPAD_1_A_IS_PRESSED, gamepad1.a);
+//
+//    }
+//    private boolean toggleButton(String buttonStateName, String buttonPressName, boolean buttonState) {
+//        boolean buttonPressed = toggleMap.get(buttonPressName);
+//        boolean toggle = toggleMap.get(buttonStateName);
+//
+//        if (buttonState) {
+//            if (!buttonPressed) {
+//                toggleMap.put(buttonStateName, !toggle);
+//                toggleMap.put(buttonPressName, true);
+//            }
+//        } else {
+//            toggleMap.put(buttonPressName, false);
+//        }
+//
+//        return toggleMap.get(buttonStateName);
+//    }
 
+
+}

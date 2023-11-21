@@ -27,12 +27,12 @@ public class BrainSTEMRobot {
     }
 
     public void update(){
-        telemetry.addData("collectorState", collector.collectorState);
         collector.setCollectorState();
         hanging.hangingState();
         hanging.setServoState();
         transfer.transferState();
         depositor.depositorServoState();
+        depositor.pixelState();
         lift.liftState();
     }
 
