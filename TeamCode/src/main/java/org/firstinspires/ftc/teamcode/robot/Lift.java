@@ -59,27 +59,27 @@ public class Lift {
                 break;
             }
             case ONE: {
-//                setLiftHeight(levelOneHeight);
+                setLiftHeight(levelOneHeight);
                 telemetry.addData("lift enum", "One");
                 break;
             }
             case TWO: {
-//                setLiftHeight(levelTwoHeight);
+                setLiftHeight(levelTwoHeight);
                 telemetry.addData("lift enum", "Two");
                 break;
             }
             case THREE: {
-//                setLiftHeight(levelThreeHeight);
+                setLiftHeight(levelThreeHeight);
                 telemetry.addData("lift enum", "Three");
                 break;
             }
             case FOUR: {
-//                setLiftHeight(levelFourHeight);
+                setLiftHeight(levelFourHeight);
                 telemetry.addData("lift enum", "Four");
                 break;
             }
             case FIVE: {
-//                setLiftHeight(levelFiveHeight);
+                setLiftHeight(levelFiveHeight);
                 telemetry.addData("lift enum", "Five");
                 break;
             }

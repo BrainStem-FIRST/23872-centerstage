@@ -11,11 +11,11 @@ import org.firstinspires.ftc.teamcode.utils.CachingServo;
 public class Depositor {
     Telemetry telemetry;
      HardwareMap hardwareMap;
-
-    public DepositorServoState depositorServoState = DepositorServoState.RESTING;
-    public PixelState pixelState = PixelState.DROP;
-    private final ServoImplEx LeftDepositor;
+     public DepositorServoState depositorServoState = DepositorServoState.RESTING;
+     private final ServoImplEx LeftDepositor;
     private final ServoImplEx RightDepositor;
+    public PixelState pixelState = PixelState.HOLD;
+
     private final ServoImplEx TopPixHold;
     private final ServoImplEx BottomPixHold;
 
