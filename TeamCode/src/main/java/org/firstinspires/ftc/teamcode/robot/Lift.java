@@ -156,6 +156,9 @@ public class Lift {
     public void setLiftZero () {
         liftState = LiftState.ZERO;
     }
+    public void setLiftFour () {
+        liftState = LiftState.FOUR;
+    }
 
     public void setLiftOne () {
         liftState = LiftState.ONE;
