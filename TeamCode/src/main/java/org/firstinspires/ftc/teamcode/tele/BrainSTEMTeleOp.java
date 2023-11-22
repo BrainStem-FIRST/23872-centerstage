@@ -108,9 +108,7 @@ public class BrainSTEMTeleOp extends LinearOpMode {
                 robot.depositor.setScoringState();
             }
 
-            if (gamepad2.y) {
-                robot.collect
-            }
+            
 
             robot.update();
 
