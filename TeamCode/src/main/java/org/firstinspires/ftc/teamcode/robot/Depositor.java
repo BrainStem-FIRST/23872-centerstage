@@ -12,11 +12,14 @@ public class Depositor {
     Telemetry telemetry;
      HardwareMap hardwareMap;
 
+//<<<<<<< HEAD
 
      public DepositorServoState depositorServoState = DepositorServoState.RESTING;
      private final ServoImplEx LeftDepositor;
+//=======
+    public PixelState pixelState = PixelState.DROP;
+//>>>>>>> 814b1801a676b4962bc686fac510955819e220ca
     private final ServoImplEx RightDepositor;
-    public PixelState pixelState = PixelState.HOLD;
 
     private final ServoImplEx TopPixHold;
     private final ServoImplEx BottomPixHold;
