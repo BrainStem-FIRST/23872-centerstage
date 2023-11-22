@@ -21,13 +21,13 @@ import java.util.Map;
 
 @TeleOp (name = "TeleOp", group = "Robot")
 public class BrainSTEMTeleOp extends LinearOpMode {
-//    Map<String, Boolean> toggleMap = new HashMap<String, Boolean>() {{
-//        put(GAMEPAD_1_A_STATE, false);
-//        put(GAMEPAD_1_A_IS_PRESSED, false);
-//    }};
+    Map<String, Boolean> toggleMap = new HashMap<String, Boolean>() {{
+        put(GAMEPAD_1_A_STATE, false);
+        put(GAMEPAD_1_A_IS_PRESSED, false);
+    }};
 
-//    String GAMEPAD_1_A_STATE = "GAMEPAD_1_A_STATE";
-//    String GAMEPAD_1_A_IS_PRESSED = "GAMEPAD_1_A_IS_PRESSED";
+    String GAMEPAD_1_A_STATE = "GAMEPAD_1_A_STATE";
+    String GAMEPAD_1_A_IS_PRESSED = "GAMEPAD_1_A_IS_PRESSED";
     @Override
     public void runOpMode() {
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
@@ -76,15 +76,14 @@ public class BrainSTEMTeleOp extends LinearOpMode {
             stickyButtonB.update(gamepad1.b);
 
             if (stickyButtonA.getState()) {
-                power += 0.01;
-//                robot.lift.levelCounter();
-//                robot.lift.updateLevelCounter();
+                robot.lift.levelCounter += 1;
             } else if (stickyButtonB.getState()) {
-                power -= 0.01;
+                robot.lift.levelCounter -= 1;
             }
-            robot.lift.setRawPower(power);
+//            robot.lift.setRawPower(power);
+            telemetry.addData("level counter", "robot.lift.levelCounter()");
             telemetry.addData("power", power);
-            telemetry.addData("lift encoder", robot.lift.getPosition());
+            telemetry.addData("lift encoder", "robot.lift.getPosition()");
             if (gamepad2.x) {
                 robot.hanging.setHangingUnwind();
             } else if (gamepad2.y) {

@@ -13,7 +13,7 @@ public class Depositor {
      HardwareMap hardwareMap;
 
     public DepositorServoState depositorServoState = DepositorServoState.RESTING;
-    public PixelState pixelState = PixelState.HOLD;
+    public PixelState pixelState = PixelState.DROP;
     private final ServoImplEx LeftDepositor;
     private final ServoImplEx RightDepositor;
     private final ServoImplEx TopPixHold;

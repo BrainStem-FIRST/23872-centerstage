@@ -26,20 +26,11 @@ public class Lift {
     private final static int levelThreeHeight = 553;
     private final static int levelFourHeight = 788;
     private final static int levelFiveHeight = 1000;
-    private int heightCounter = 0;
-    private int liftHeight;
+    public int levelCounter;
 //    private final static int levelSixHeight = 600;
 //    private final static int levelSevenHeight = 700;
 //    private final static int levelEightHeight
 //    ht = 800;
-
-    public void setStateLevelZero() {
-        liftState = LiftState.ZERO;
-    }
-
-    public void setStateLevelThree() {
-        liftState = LiftState.THREE;
-    }
 
     public Lift(HardwareMap hardwareMap, Telemetry telemetry) {
         this.liftMotor = liftMotor;
@@ -48,7 +39,7 @@ public class Lift {
 
 
         pidController.setInputBounds(0, 1000);
-        pidController.setOutputBounds(0, 1);
+        pidController.setOutputBounds(-1, 1);
         liftMotor = new org.firstinspires.ftc.teamcode.util.CachingMotor(hardwareMap.get(DcMotorEx.class, "Lift"));
         liftMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -110,58 +101,45 @@ public class Lift {
     public void setLiftHeight(int liftHeight) {
         pidController.setTarget(liftHeight);
         double error = liftHeight - liftMotor.getCurrentPosition();
-        liftMotor.setPower(pidController.updateWithError(error) + kS);
+        liftMotor.setPower(pidController.updateWithError(error) + kS);}}
 //    public void setLiftUp() {
 //        liftMotor.setPower(0.6);
 //    }
-    }
-
-    public void updateLevelCounter() {
-
-    }
-    public void levelCounter(){
-        if (heightCounter == 0) {
-            liftState = LiftState.ZERO;
-        } else if(heightCounter == 108){
-            //184
-            liftState = LiftState.ONE;
-        } else if(heightCounter == 326){
-            //466
-            liftState = LiftState.TWO;
-        } else if(heightCounter == 553){
-            //686
-            liftState = LiftState.THREE;
-        } else if(heightCounter == 788){
-            //932
-            liftState = LiftState.FOUR;
-        } else if(heightCounter == 1000){
-            liftState = LiftState.FIVE;
-        }
-
-    }
 
 
-    public void setLiftDown () {
-        liftMotor.setPower(-0.6);
-    }
+//    public void setLiftDown () {
+//        liftMotor.setPower(-0.6);
+//    }
+//
+//    public void setLiftOff () {
+//        liftMotor.setPower(0);
+//    }
+//
+//    public void setRawPower (double power){
+//        liftMotor.setPower(power);
+//    }
+//
+//    private void setLiftZero () {
+//        liftState = LiftState.ZERO;
+//    }
+//
+//    private void setLiftOne () {
+//        liftState = LiftState.ONE;
+//    }
+//    private void setLiftTwo() {
+//        liftState = LiftState.TWO;
+//    }
+//    private void setLiftThree() {
+//        liftState = LiftState.THREE;
+//    }
+//    private void setLiftFour() {
+//        liftState = LiftState.FOUR;
+//    }
+//    private void setLiftFive() {
+//        liftState = LiftState.FIVE;
+////    }
+//    private int getPosition () {
+//        return liftMotor.getCurrentPosition();
+//    }
 
-    public void setLiftOff () {
-        liftMotor.setPower(0);
-    }
-
-    public void setRawPower ( double power){
-        liftMotor.setPower(power);
-    }
-
-    public void setLiftZero () {
-        liftState = LiftState.ZERO;
-    }
-
-    public void setLiftOne () {
-        liftState = LiftState.ONE;
-    }
-    public int getPosition () {
-        return liftMotor.getCurrentPosition();
-    }
-
-}
+//}
