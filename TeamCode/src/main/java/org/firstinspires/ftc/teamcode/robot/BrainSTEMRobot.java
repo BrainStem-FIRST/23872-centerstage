@@ -14,7 +14,6 @@ public class BrainSTEMRobot {
     public Hanging hanging;
 
     public BrainSTEMRobot (HardwareMap hardwareMap, Telemetry telemetry){
-
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
 
@@ -26,16 +25,15 @@ public class BrainSTEMRobot {
 //        lift = new Lift(hardwareMap, telemetry);
     }
 
-    public void update(){
+    public void update() {
         telemetry.addData("collectorState", collector.collectorState);
         collector.setCollectorState();
         hanging.hangingState();
         hanging.setServoState();
         transfer.transferState();
         depositor.depositorServoState();
+//        lift.liftState();
     }
-
-
 
 }
 

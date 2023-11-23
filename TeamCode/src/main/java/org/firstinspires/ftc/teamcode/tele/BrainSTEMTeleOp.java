@@ -21,13 +21,6 @@ import java.util.Map;
 
 @TeleOp (name = "TeleOp", group = "Robot")
 public class BrainSTEMTeleOp extends LinearOpMode {
-    Map<String, Boolean> toggleMap = new HashMap<String, Boolean>() {{
-        put(GAMEPAD_1_A_STATE, false);
-        put(GAMEPAD_1_A_IS_PRESSED, false);
-    }};
-
-    String GAMEPAD_1_A_STATE = "GAMEPAD_1_A_STATE";
-    String GAMEPAD_1_A_IS_PRESSED = "GAMEPAD_1_A_IS_PRESSED";
     @Override
     public void runOpMode() {
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
@@ -50,17 +43,9 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 
             drive.updatePoseEstimate();
 
-//            telemetry.addData("x", drive.pose.position.x);
-//            telemetry.addData("y", drive.pose.position.y);
-//            telemetry.addData("heading", drive.pose.heading);
             telemetry.addData("Tele Collector State", "TEST");
             telemetry.update();
-
-//            if(toggleMap.get(GAMEPAD_1_A_STATE)){
-//                robot.lift.setLiftHeight(108);
-//            } else {
-//                robot.lift.setLiftHeight(0);
-//            }
+//collector
             if (gamepad1.right_trigger > 0.2) {
                 robot.collector.setCollectorIn();
                 robot.collector.setCollectorState();
@@ -78,11 +63,37 @@ public class BrainSTEMTeleOp extends LinearOpMode {
                 robot.transfer.transferState();
             }
 
-
+//pixel holder
+            if (gamepad1.left_bumper) {
+                robot.depositor.setDropState();
+            } else if (gamepad1.right_bumper) {
+                robot.depositor.setHoldState();
+            }
+//depositor
+            if (gamepad1.x) {
+                robot.depositor.setRestingState();
+                robot.depositor.depositorServoState();
+            } else if (gamepad1.y) {
+                robot.depositor.setScoringState();
+                robot.depositor.depositorServoState();
+            }
+//hanging wind
+            if (gamepad2.x) {
+                robot.hanging.setHangingUnwind();
+            } else if (gamepad2.y) {
+                robot.hanging.setHangingWind();
+            }
+//hanging servo
+            if (gamepad2.left_bumper) {
+                robot.hanging.setLockState();
+            } else if (gamepad2.right_bumper) {
+                robot.hanging.setUnlockState();
+            }
+//lift
 //            if (gamepad1.a) {
 //                robot.lift.setLiftHeight(0);
-////                robot.lift.levelCounter();
-////                robot.lift.updateLevelCounter();
+//                robot.lift.levelCounter();
+//                robot.lift.updateLevelCounter();
 //            } else if (gamepad1.b) {
 //                robot.lift.setLiftHeight(788);
 //            }
@@ -92,71 +103,8 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 //            } else if (stickyButtonB.getState()) {
 //                robot.lift.levelCounter -= 1;
 //            }
-//            robot.lift.setRawPower(power);
-//            telemetry.addData("level counter", robot.lift.levelCounter);
-//            telemetry.addData("power", power);
-//            telemetry.addData("lift encoder", robot.lift.liftMotor.getCurrentPosition());
-//            stickyButtonA.update(gamepad1.a);
-//            stickyButtonB.update(gamepad1.b);
-//
-//            if (stickyButtonA.getState()) {
-//                power += 0.005;
-//                robot.lift.levelCounter();
-//                robot.lift.updateLevelCounter();
-//            } else if (stickyButtonB.getState()) {
-//                power -= 0.005;
-//            }
-//            robot.lift.setRawPower(power);
-            telemetry.addData("power", power);
-            telemetry.addData("lift encoder", robot.lift.getPosition());
-            telemetry.addData("lift state", robot.lift.liftState);
-            if (gamepad2.x) {
-                robot.hanging.setHangingUnwind();
-            } else if (gamepad2.y) {
-                robot.hanging.setHangingWind();
-            }
-
-            if (gamepad1.left_bumper) {
-                robot.hanging.setLockState();
-            } else if (gamepad1.right_bumper) {
-                robot.hanging.setUnlockState();
-            }
-
-            if (gamepad1.left_bumper) {
-                robot.depositor.setHoldState();
-                robot.depositor.pixelState();
-            } else if (gamepad1.right_bumper) {
-                robot.depositor.setDropState();
-                robot.depositor.pixelState();
-            }
-            if (gamepad1.x) {
-                robot.depositor.setRestingState();
-                robot.depositor.depositorServoState();
-            } else if (gamepad1.y) {
-                robot.depositor.setScoringState();
-                robot.depositor.depositorServoState();
-            }
             robot.update();
+        }
+
     }
-//    private void setButtons() {
-//        toggleButton(GAMEPAD_1_A_STATE, GAMEPAD_1_A_IS_PRESSED, gamepad1.a);
-//
-//    }
-//    private boolean toggleButton(String buttonStateName, String buttonPressName, boolean buttonState) {
-//        boolean buttonPressed = toggleMap.get(buttonPressName);
-//        boolean toggle = toggleMap.get(buttonStateName);
-//
-//        if (buttonState) {
-//            if (!buttonPressed) {
-//                toggleMap.put(buttonStateName, !toggle);
-//                toggleMap.put(buttonPressName, true);
-//            }
-//        } else {
-//            toggleMap.put(buttonPressName, false);
-//        }
-//
-//        return toggleMap.get(buttonStateName);
-//    }
-
-
-}}
+}

@@ -10,8 +10,6 @@ public class Lift {
     public DcMotorEx liftMotor;
     private final HardwareMap hardwareMap;
     private final Telemetry telemetry;
-
-
     public LiftState liftState = LiftState.ZERO;
 
     private final static double kP = 0.1;
@@ -108,7 +106,7 @@ public class Lift {
 //    public void updateLevelCounter(){
 //        heightCounter += 218;
 //    }
-//    public void levelCounter(){
+//    publiPOcd89c void levelCounter(){
 //        if (heightCounter == 0) {
 //            liftState = LiftState.ZERO;
 //        } else if(heightCounter == 108){
