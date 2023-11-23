@@ -61,38 +61,40 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 //            } else {
 //                robot.lift.setLiftHeight(0);
 //            }
-            if (gamepad1.right_trigger > 0.5) {
+            if (gamepad1.right_trigger > 0.2) {
                 robot.collector.setCollectorIn();
+                robot.collector.setCollectorState();
                 robot.transfer.setTransferIn();
-            } else if (gamepad1.left_trigger > 0.5) {
+                robot.transfer.transferState();
+            } else if (gamepad1.left_trigger > 0.2) {
                 robot.collector.setCollectorOut();
+                robot.collector.setCollectorState();
                 robot.transfer.setTransferOut();
+                robot.transfer.transferState();
             } else {
                 robot.collector.setCollectorOff();
+                robot.collector.setCollectorState();
                 robot.transfer.setTransferOff();
+                robot.transfer.transferState();
             }
 
-
-//<<<<<<< HEAD
-
-            if (gamepad1.a) {
-                robot.lift.setLiftHeight(0);
-//                robot.lift.levelCounter();
-//                robot.lift.updateLevelCounter();
-            } else if (gamepad1.b) {
-                robot.lift.setLiftHeight(788);
-
-//=======
-            if (stickyButtonA.getState()) {
-                robot.lift.levelCounter += 1;
-            } else if (stickyButtonB.getState()) {
-                robot.lift.levelCounter -= 1;
-//>>>>>>> 814b1801a676b4962bc686fac510955819e220ca
-            }
+//            if (gamepad1.a) {
+//                robot.lift.setLiftHeight(0);
+////                robot.lift.levelCounter();
+////                robot.lift.updateLevelCounter();
+//            } else if (gamepad1.b) {
+//                robot.lift.setLiftHeight(788);
+//            }
+//
+//            if (stickyButtonA.getState()) {
+//                robot.lift.levelCounter += 1;
+//            } else if (stickyButtonB.getState()) {
+//                robot.lift.levelCounter -= 1;
+//            }
 //            robot.lift.setRawPower(power);
-            telemetry.addData("level counter", "robot.lift.levelCounter()");
-            telemetry.addData("power", power);
-            telemetry.addData("lift encoder", "robot.lift.getPosition()");
+//            telemetry.addData("level counter", robot.lift.levelCounter);
+//            telemetry.addData("power", power);
+//            telemetry.addData("lift encoder", robot.lift.liftMotor.getCurrentPosition());
             if (gamepad2.x) {
                 robot.hanging.setHangingUnwind();
             } else if (gamepad2.y) {
@@ -107,20 +109,19 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 
             if (gamepad1.left_bumper) {
                 robot.depositor.setHoldState();
+                robot.depositor.pixelState();
             } else if (gamepad1.right_bumper) {
                 robot.depositor.setDropState();
+                robot.depositor.pixelState();
             }
             if (gamepad1.x) {
                 robot.depositor.setRestingState();
+                robot.depositor.depositorServoState();
             } else if (gamepad1.y) {
                 robot.depositor.setScoringState();
+                robot.depositor.depositorServoState();
             }
-
-            
-
             robot.update();
-
-        }
     }
 //    private void setButtons() {
 //        toggleButton(GAMEPAD_1_A_STATE, GAMEPAD_1_A_IS_PRESSED, gamepad1.a);

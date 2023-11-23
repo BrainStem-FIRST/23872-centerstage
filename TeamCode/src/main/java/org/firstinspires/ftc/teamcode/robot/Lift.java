@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Lift {
 
-    private DcMotorEx liftMotor;
+    public DcMotorEx liftMotor;
     private final HardwareMap hardwareMap;
     private final Telemetry telemetry;
 
@@ -142,7 +142,7 @@ public class Lift {
 //        return liftMotor.getCurrentPosition();
 //    }
 
-//<<<<<<< HEAD
+
 //public void setLiftOff () {
 //        liftMotor.setPower(0);
 //    }
@@ -166,6 +166,4 @@ public class Lift {
 //    }
 
 //}
-//=======
-////}
-//>>>>>>> 814b1801a676b4962bc686fac510955819e220ca
+

@@ -15,20 +15,20 @@ public class Depositor {
 //<<<<<<< HEAD
 
      public DepositorServoState depositorServoState = DepositorServoState.RESTING;
-     private final ServoImplEx LeftDepositor;
+
 //=======
     public PixelState pixelState = PixelState.DROP;
-//>>>>>>> 814b1801a676b4962bc686fac510955819e220ca
+    private final ServoImplEx LeftDepositor;
     private final ServoImplEx RightDepositor;
 
     private final ServoImplEx TopPixHold;
     private final ServoImplEx BottomPixHold;
 
-    private static final double LEFT_DEPOSITOR_MAX = 2420;
+    private static final double LEFT_DEPOSITOR_MAX = 2520;
     private static final double LEFT_DEPOSITOR_MIN = 1316;
-    private static final double RIGHT_DEPOSITOR_MAX = 665;
+    private static final double RIGHT_DEPOSITOR_MAX = 765;
     private static final double RIGHT_DEPOSITOR_MIN = 2192;
-    private static final double TOP_PIX_HOLD_MAX = 1363;
+    private static final double TOP_PIX_HOLD_MAX = 1677;
     private static final double TOP_PIX_HOLD_MIN = 100;
     private static final double BOTTOM_PIX_HOLD_MAX = 1677;
     private static final double BOTTOM_PIX_HOLD_MIN = 100;
@@ -107,8 +107,12 @@ public class Depositor {
         RightDepositor.setPosition(0.01);
     }
 
-    public void setRestingState() {depositorServoState = DepositorServoState.RESTING;}
-    public void setScoringState() {depositorServoState = DepositorServoState.SCORING;}
+    public void setRestingState() {
+        depositorServoState = DepositorServoState.RESTING;
+    }
+    public void setScoringState() {
+        depositorServoState = DepositorServoState.SCORING;
+    }
 
 
 }
