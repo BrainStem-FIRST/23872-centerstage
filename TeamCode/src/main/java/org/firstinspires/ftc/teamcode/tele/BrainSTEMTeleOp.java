@@ -78,6 +78,7 @@ public class BrainSTEMTeleOp extends LinearOpMode {
                 robot.transfer.transferState();
             }
 
+
 //            if (gamepad1.a) {
 //                robot.lift.setLiftHeight(0);
 ////                robot.lift.levelCounter();
@@ -95,15 +96,29 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 //            telemetry.addData("level counter", robot.lift.levelCounter);
 //            telemetry.addData("power", power);
 //            telemetry.addData("lift encoder", robot.lift.liftMotor.getCurrentPosition());
+//            stickyButtonA.update(gamepad1.a);
+//            stickyButtonB.update(gamepad1.b);
+//
+//            if (stickyButtonA.getState()) {
+//                power += 0.005;
+//                robot.lift.levelCounter();
+//                robot.lift.updateLevelCounter();
+//            } else if (stickyButtonB.getState()) {
+//                power -= 0.005;
+//            }
+//            robot.lift.setRawPower(power);
+            telemetry.addData("power", power);
+            telemetry.addData("lift encoder", robot.lift.getPosition());
+            telemetry.addData("lift state", robot.lift.liftState);
             if (gamepad2.x) {
                 robot.hanging.setHangingUnwind();
             } else if (gamepad2.y) {
                 robot.hanging.setHangingWind();
             }
 
-            if (gamepad2.left_bumper) {
+            if (gamepad1.left_bumper) {
                 robot.hanging.setLockState();
-            } else if (gamepad2.right_bumper) {
+            } else if (gamepad1.right_bumper) {
                 robot.hanging.setUnlockState();
             }
 

@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PwmControl;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
-import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.utils.CachingServo;
 
@@ -12,6 +11,7 @@ public class Depositor {
     Telemetry telemetry;
      HardwareMap hardwareMap;
 
+<<<<<<< HEAD
 //<<<<<<< HEAD
 
      public DepositorServoState depositorServoState = DepositorServoState.RESTING;
@@ -32,6 +32,16 @@ public class Depositor {
     private static final double TOP_PIX_HOLD_MIN = 100;
     private static final double BOTTOM_PIX_HOLD_MAX = 1677;
     private static final double BOTTOM_PIX_HOLD_MIN = 100;
+=======
+     public DepositorServoState depositorServoState = DepositorServoState.RESTING;
+     private ServoImplEx LeftDepositor;
+    private ServoImplEx RightDepositor;
+
+    private static final double LEFT_DEPOSITOR_MAX = 1500;
+    private static final double LEFT_DEPOSITOR_MIN = 500;
+    private static final double RIGHT_DEPOSITOR_MAX = 1500;
+    private static final double RIGHT_DEPOSITOR_MIN = 500;
+>>>>>>> parent of 09c8cc8 (tele op able to score)
 
 
     public Depositor(HardwareMap hardwareMap,Telemetry telemetry){
@@ -40,44 +50,13 @@ public class Depositor {
 
         LeftDepositor = new CachingServo(hardwareMap.get(ServoImplEx.class,"LeftDepositor"));
         RightDepositor = new CachingServo(hardwareMap.get(ServoImplEx.class,"RightDepositor"));
-        TopPixHold = new CachingServo(hardwareMap.get(ServoImplEx.class,"TopPixHold"));
-        BottomPixHold = new CachingServo(hardwareMap.get(ServoImplEx.class,"BottomPixHold"));
 
         LeftDepositor.setPwmRange(new PwmControl.PwmRange(LEFT_DEPOSITOR_MAX, LEFT_DEPOSITOR_MIN));
         RightDepositor.setPwmRange(new PwmControl.PwmRange(RIGHT_DEPOSITOR_MAX, RIGHT_DEPOSITOR_MIN));
-        TopPixHold.setPwmRange(new PwmControl.PwmRange(TOP_PIX_HOLD_MAX, TOP_PIX_HOLD_MIN));
-        BottomPixHold.setPwmRange(new PwmControl.PwmRange(BOTTOM_PIX_HOLD_MAX, BOTTOM_PIX_HOLD_MIN));
-    }
 
-    public enum PixelState {
-        HOLD, DROP
-    }
 
-    public void pixelState() {
-        switch (pixelState){
-            case HOLD: {
-                pixelHold();
-                break;
-            }
-            case DROP: {
-                pixelDrop();
-                break;
-            }
-        }
-    }
-    private void pixelHold() {
-       telemetry.addData("pixel position","hold");
-        TopPixHold.setPosition(0.01);
-        BottomPixHold.setPosition(0.01);
-    }
-    private void pixelDrop() {
-        telemetry.addData("pixel position","drop");
-        TopPixHold.setPosition(0.99);
-        BottomPixHold.setPosition(0.99);
-    }
 
-    public void setHoldState() {pixelState = PixelState.HOLD;}
-    public void setDropState() {pixelState = PixelState.DROP;}
+    }
 
     public enum DepositorServoState {
         RESTING, SCORING
@@ -97,14 +76,12 @@ public class Depositor {
 
 
     private void depositorResting(){
-        telemetry.addData("depositor", "resting");
-        LeftDepositor.setPosition(0.99);
-        RightDepositor.setPosition(0.99);
-    }
-    private void depositorScoring(){
-        telemetry.addData("depositor", "scoring");
         LeftDepositor.setPosition(0.01);
         RightDepositor.setPosition(0.01);
+    }
+    private void depositorScoring(){
+        LeftDepositor.setPosition(0.99);
+        RightDepositor.setPosition(0.99);
     }
 
     public void setRestingState() {
@@ -116,5 +93,4 @@ public class Depositor {
 
 
 }
-
 

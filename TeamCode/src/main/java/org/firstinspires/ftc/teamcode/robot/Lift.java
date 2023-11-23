@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Lift {
-
     public DcMotorEx liftMotor;
     private final HardwareMap hardwareMap;
     private final Telemetry telemetry;
@@ -104,6 +103,26 @@ public class Lift {
         liftMotor.setPower(pidController.updateWithError(error) + kS);}};
 //    public void setLiftUp() {
 //        liftMotor.setPower(0.6);
+//    }
+
+//    public void updateLevelCounter(){
+//        heightCounter += 218;
+//    }
+//    public void levelCounter(){
+//        if (heightCounter == 0) {
+//            liftState = LiftState.ZERO;
+//        } else if(heightCounter == 108){
+//            liftState = LiftState.ONE;
+//        } else if(heightCounter == 326){
+//            liftState = LiftState.TWO;
+//        } else if(heightCounter == 553){
+//            liftState = LiftState.THREE;
+//        } else if(heightCounter == 788){
+//            liftState = LiftState.FOUR;
+//        } else if(heightCounter == 1000){
+//            liftState = LiftState.FIVE;
+//        }
+//
 //    }
 
 
