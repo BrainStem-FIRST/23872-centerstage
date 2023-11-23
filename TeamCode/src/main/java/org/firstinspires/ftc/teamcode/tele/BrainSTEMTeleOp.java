@@ -75,16 +75,19 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 
 
             if (gamepad1.a) {
-                robot.lift.setLiftFour();
-//                robot.lift.levelCounter();
+                robot.lift.levelCounter += 1;
 //                robot.lift.updateLevelCounter();
-            } else if (gamepad1.b) {
-                robot.lift.setLiftZero();
-
             }
-            robot.lift.setRawPower(power);
+            else if (gamepad1.b) {
+                robot.lift.levelCounter -= 1;
+            }
+
+
+
+
+
+//            robot.lift.setRawPower(power);
             telemetry.addData("power", power);
-            telemetry.addData("lift encoder", robot.lift.getPosition());
             if (gamepad2.x) {
                 robot.hanging.setHangingUnwind();
             } else if (gamepad2.y) {

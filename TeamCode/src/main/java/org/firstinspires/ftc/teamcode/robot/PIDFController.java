@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.robot;
 import com.qualcomm.robotcore.util.Range;
 
 
-public class PIDController {
+public class PIDFController {
 
     private double target;
     private double kP, kI, kD;
@@ -14,7 +14,7 @@ public class PIDController {
     private double lowerInputBound = Double.NEGATIVE_INFINITY, higherInputBound = Double.POSITIVE_INFINITY;
     private double lowerOutputBound = Double.NEGATIVE_INFINITY, higherOutputBound = Double.POSITIVE_INFINITY;
 
-    public PIDController(double kP, double kI, double kD) {
+    public PIDFController(double kP, double kI, double kD) {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
@@ -22,7 +22,7 @@ public class PIDController {
         shouldReset = true;
     }
 
-    public void setPIDValues(double kP, double kI, double kD){
+    public void setPIDFValues(double kP, double kI, double kD){
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
@@ -95,5 +95,4 @@ public class PIDController {
 
         return Math.signum(correction) * Range.clip(Math.abs(correction),
                 lowerOutputBound, higherOutputBound);
-    }
-}
+    }}

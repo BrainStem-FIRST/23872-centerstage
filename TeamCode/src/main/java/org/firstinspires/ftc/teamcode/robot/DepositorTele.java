@@ -4,19 +4,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PwmControl;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
-import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.utils.CachingServo;
 
-public class Depositor {
+public class DepositorTele {
     Telemetry telemetry;
      HardwareMap hardwareMap;
-
-
      public DepositorServoState depositorServoState = DepositorServoState.RESTING;
      private final ServoImplEx LeftDepositor;
+    public PixelState pixelState = PixelState.DROP;
     private final ServoImplEx RightDepositor;
-    public PixelState pixelState = PixelState.HOLD;
 
     private final ServoImplEx TopPixHold;
     private final ServoImplEx BottomPixHold;
@@ -31,7 +28,7 @@ public class Depositor {
     private static final double BOTTOM_PIX_HOLD_MIN = 100;
 
 
-    public Depositor(HardwareMap hardwareMap,Telemetry telemetry){
+    public DepositorTele(HardwareMap hardwareMap,Telemetry telemetry){
         this.telemetry=telemetry;
         this.hardwareMap=hardwareMap;
 

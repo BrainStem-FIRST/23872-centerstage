@@ -9,8 +9,8 @@ public class BrainSTEMRobot {
     Telemetry telemetry;
     public CollectorTele collector;
     public TransferTele transfer;
-    public Depositor depositor;
-    public Lift lift;
+    public DepositorTele depositor;
+    public LiftTele lift;
     public Hanging hanging;
 
     public BrainSTEMRobot (HardwareMap hardwareMap, Telemetry telemetry){
@@ -22,8 +22,8 @@ public class BrainSTEMRobot {
         collector = new CollectorTele(hardwareMap, telemetry);
         hanging = new Hanging(hardwareMap, telemetry);
         transfer = new TransferTele(hardwareMap, telemetry);
-        depositor = new Depositor(hardwareMap, telemetry);
-        lift = new Lift(hardwareMap, telemetry);
+        depositor = new DepositorTele(hardwareMap, telemetry);
+        lift = new LiftTele(hardwareMap, telemetry);
     }
 
     public void update(){
