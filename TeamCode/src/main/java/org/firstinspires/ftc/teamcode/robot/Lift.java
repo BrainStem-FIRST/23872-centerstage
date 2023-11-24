@@ -11,26 +11,25 @@ public class Lift {
     private final HardwareMap hardwareMap;
     private final Telemetry telemetry;
     public LiftState liftState = LiftState.ZERO;
+    private int levelCounter = 0;
 
-    private final static double kP = 0.1;
+    private final static double kP = 0.05;
     private final static double kI = 0.0;
     private final static double kD = 0.0;
-    private final static double kS = 0.005;
+    private final static double kS = 0.001;
     PIDController pidController = new PIDController(kP, kI, kD);
-    private final static int levelZeroHeight = 0;
+    private final static int levelZeroHeight = 25;
     private final static int levelOneHeight = 108;
     private final static int levelTwoHeight = 326;
     private final static int levelThreeHeight = 553;
     private final static int levelFourHeight = 788;
     private final static int levelFiveHeight = 1000;
-    public int levelCounter;
 //    private final static int levelSixHeight = 600;
 //    private final static int levelSevenHeight = 700;
 //    private final static int levelEightHeight
 //    ht = 800;
 
     public Lift(HardwareMap hardwareMap, Telemetry telemetry) {
-        this.liftMotor = liftMotor;
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
 
@@ -49,6 +48,7 @@ public class Lift {
 
 
     public void liftState() {
+        updateLevel();
         switch (liftState) {
             case ZERO: {
                setLiftHeight(levelZeroHeight);
@@ -98,32 +98,50 @@ public class Lift {
     public void setLiftHeight(int liftHeight) {
         pidController.setTarget(liftHeight);
         double error = liftHeight - liftMotor.getCurrentPosition();
-        liftMotor.setPower(pidController.updateWithError(error) + kS);}};
+        liftMotor.setPower(pidController.updateWithError(error) + kS);
+    }
 //    public void setLiftUp() {
 //        liftMotor.setPower(0.6);
 //    }
 
-//    public void updateLevelCounter(){
-//        heightCounter += 218;
-//    }
-//    publiPOcd89c void levelCounter(){
-//        if (heightCounter == 0) {
-//            liftState = LiftState.ZERO;
-//        } else if(heightCounter == 108){
-//            liftState = LiftState.ONE;
-//        } else if(heightCounter == 326){
-//            liftState = LiftState.TWO;
-//        } else if(heightCounter == 553){
-//            liftState = LiftState.THREE;
-//        } else if(heightCounter == 788){
-//            liftState = LiftState.FOUR;
-//        } else if(heightCounter == 1000){
-//            liftState = LiftState.FIVE;
-//        }
-//
-//    }
+    public void increaseLevel(){
+        levelCounter += 1;
+        if (levelCounter >= 6){
+            levelCounter = 5;
+        }
+
+    }
+    public void decreaseLevel() {
+        levelCounter -= 1;
+        if (levelCounter <= 0) {
+            levelCounter = 0;
+        }
+    }
+
+    public void updateLevel(){
+        switch (levelCounter){
+            case 0:
+                liftState = LiftState.ZERO;
+                break;
+            case 1:
+                liftState = LiftState.ONE;
+                break;
+            case 2:
+                liftState = LiftState.TWO;
+                break;
+            case 3:
+                liftState = LiftState.THREE;
+                break;
+            case 4:
+                liftState = LiftState.FOUR;
+                break;
+            case 5:
+                liftState = LiftState.FIVE;
+                break;
 
 
+        }
+    }
 //    public void setLiftDown () {
 //        liftMotor.setPower(-0.6);
 //    }
@@ -182,5 +200,5 @@ public class Lift {
 //        return liftMotor.getCurrentPosition();
 //    }
 
-//}
+}
 

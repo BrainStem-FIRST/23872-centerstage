@@ -13,9 +13,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.utils.CachingServo;
 
 public class Depositor {
-    Telemetry telemetry;
-     HardwareMap hardwareMap;
-     public DepositorServoState depositorServoState = DepositorServoState.RESTING;
+    private Telemetry telemetry;
+    private HardwareMap hardwareMap;
+    public DepositorServoState depositorServoState = DepositorServoState.RESTING;
     public PixelState pixelState = PixelState.DROP;
     private final ServoImplEx LeftDepositor;
     private final ServoImplEx RightDepositor;
@@ -54,9 +54,11 @@ public class Depositor {
         switch (pixelState){
             case HOLD: {
                 pixelHold();
+                break;
             }
             case DROP: {
                 pixelDrop();
+                break;
             }
         }
     }
@@ -93,12 +95,14 @@ public class Depositor {
 
 
     private void depositorResting(){
-        LeftDepositor.setPosition(0.01);
-        RightDepositor.setPosition(0.01);
-    }
-    private void depositorScoring(){
         LeftDepositor.setPosition(0.99);
         RightDepositor.setPosition(0.99);
+        telemetry.addData("ServoState", "Resting");
+    }
+    private void depositorScoring(){
+        LeftDepositor.setPosition(0.01);
+        RightDepositor.setPosition(0.01);
+        telemetry.addData("ServoState", "Scoring");
     }
 
     public void setRestingState() {

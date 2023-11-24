@@ -22,7 +22,7 @@ public class BrainSTEMRobot {
         hanging = new Hanging(hardwareMap, telemetry);
         transfer = new TransferTele(hardwareMap, telemetry);
         depositor = new Depositor(hardwareMap, telemetry);
-//        lift = new Lift(hardwareMap, telemetry);
+        lift = new Lift(hardwareMap, telemetry);
     }
 
     public void update() {
@@ -32,7 +32,8 @@ public class BrainSTEMRobot {
         hanging.setServoState();
         transfer.transferState();
         depositor.depositorServoState();
-//        lift.liftState();
+        depositor.pixelState();
+        lift.liftState();
     }
 
 }

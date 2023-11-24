@@ -72,10 +72,8 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 //depositor
             if (gamepad1.x) {
                 robot.depositor.setRestingState();
-                robot.depositor.depositorServoState();
             } else if (gamepad1.y) {
                 robot.depositor.setScoringState();
-                robot.depositor.depositorServoState();
             }
 //hanging wind
             if (gamepad2.x) {
@@ -90,19 +88,11 @@ public class BrainSTEMTeleOp extends LinearOpMode {
                 robot.hanging.setUnlockState();
             }
 //lift
-//            if (gamepad1.a) {
-//                robot.lift.setLiftHeight(0);
-//                robot.lift.levelCounter();
-//                robot.lift.updateLevelCounter();
-//            } else if (gamepad1.b) {
-//                robot.lift.setLiftHeight(788);
-//            }
-//
-//            if (stickyButtonA.getState()) {
-//                robot.lift.levelCounter += 1;
-//            } else if (stickyButtonB.getState()) {
-//                robot.lift.levelCounter -= 1;
-//            }
+            if (gamepad1.a) {
+                robot.lift.increaseLevel();
+            } else if (gamepad1.b) {
+                robot.lift.decreaseLevel();
+            }
             robot.update();
         }
 
