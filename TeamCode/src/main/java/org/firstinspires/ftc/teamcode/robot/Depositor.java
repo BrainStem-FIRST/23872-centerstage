@@ -50,7 +50,7 @@ public class Depositor {
         HOLD, DROP
     }
 
-    public void pixelState() {
+    public void pixelState(CollectorTele collectorTele) {
         switch (pixelState){
             case HOLD: {
                 pixelHold();
@@ -62,11 +62,20 @@ public class Depositor {
             }
         }
     }
+    private void setDepositorState(Lift lift){
+        if (lift.liftState == Lift.LiftState.ZERO){
+            depositorServoState = RESTING;
+        } else {
+            depositorServoState = SCORING;
+        }
+    }
     private void pixelHold() {
+        telemetry.addData("PixelPosition","Hold");
         TopPixHold.setPosition(0.01);
         BottomPixHold.setPosition(0.01);
     }
     private void pixelDrop() {
+        telemetry.addData("PixelPosition","Drop");
         TopPixHold.setPosition(0.99);
         BottomPixHold.setPosition(0.99);
     }
@@ -80,7 +89,8 @@ public class Depositor {
     public void setDropState() {
         pixelState = PixelState.DROP;
     }
-    public void depositorServoState() {
+    public void depositorServoState(Lift lift) {
+        setDepositorState(lift);
         switch (depositorServoState){
             case RESTING: {
                 depositorResting();

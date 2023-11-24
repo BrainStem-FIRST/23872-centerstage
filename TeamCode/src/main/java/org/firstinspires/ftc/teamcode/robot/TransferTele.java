@@ -17,7 +17,6 @@ public class TransferTele {
     public TransferTele(HardwareMap hardwareMap,Telemetry telemetry) {
         this.telemetry=telemetry;
         this.hardwareMap=hardwareMap;
-
         transferMotor = new CachingMotor(hardwareMap.get(DcMotorEx.class,"Transfer"));
     }
     public enum TransferState {

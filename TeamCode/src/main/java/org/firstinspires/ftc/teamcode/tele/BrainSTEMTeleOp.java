@@ -33,8 +33,7 @@ public class BrainSTEMTeleOp extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-//            setButtons();
-            drive.setDrivePowers(new PoseVelocity2d(
+           drive.setDrivePowers(new PoseVelocity2d(
                     new Vector2d(
                             -gamepad1.left_stick_y,
                             -gamepad1.left_stick_x
@@ -48,19 +47,13 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 //collector
             if (gamepad1.right_trigger > 0.2) {
                 robot.collector.setCollectorIn();
-                robot.collector.setCollectorState();
                 robot.transfer.setTransferIn();
-                robot.transfer.transferState();
             } else if (gamepad1.left_trigger > 0.2) {
                 robot.collector.setCollectorOut();
-                robot.collector.setCollectorState();
                 robot.transfer.setTransferOut();
-                robot.transfer.transferState();
             } else {
                 robot.collector.setCollectorOff();
-                robot.collector.setCollectorState();
                 robot.transfer.setTransferOff();
-                robot.transfer.transferState();
             }
 
 //pixel holder
@@ -68,12 +61,6 @@ public class BrainSTEMTeleOp extends LinearOpMode {
                 robot.depositor.setDropState();
             } else if (gamepad1.right_bumper) {
                 robot.depositor.setHoldState();
-            }
-//depositor
-            if (gamepad1.x) {
-                robot.depositor.setRestingState();
-            } else if (gamepad1.y) {
-                robot.depositor.setScoringState();
             }
 //hanging wind
             if (gamepad2.x) {
@@ -87,10 +74,18 @@ public class BrainSTEMTeleOp extends LinearOpMode {
             } else if (gamepad2.right_bumper) {
                 robot.hanging.setUnlockState();
             }
-//lift
-            if (gamepad1.a) {
+//drone release
+            if (gamepad2.a) {
+                robot.drone.setLockState();
+            } else if (gamepad2.b) {
+                robot.drone.setUnlockState();
+            }
+//lift and depositor
+            stickyButtonA.update(gamepad1.a);
+            stickyButtonB.update(gamepad1.b);
+            if (stickyButtonA.getState()) {
                 robot.lift.increaseLevel();
-            } else if (gamepad1.b) {
+            } else if (stickyButtonB.getState()) {
                 robot.lift.decreaseLevel();
             }
             robot.update();
