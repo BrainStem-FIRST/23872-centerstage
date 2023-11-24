@@ -6,11 +6,10 @@ import static org.firstinspires.ftc.teamcode.robot.CollectorTele.CollectorState.
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.PwmControl;
-import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.CachingMotor;
+<<<<<<< HEAD
 import org.firstinspires.ftc.teamcode.utils.CachingServo;
 
 import java.security.SecureRandom;
@@ -23,6 +22,14 @@ public class CollectorTele {
     private final ServoImplEx DrawbridgeServo;
     public DrawbridgeState drawbridgeState = DrawbridgeState.ONE;
     public CollectorState collectorState = CollectorState.OFF;
+=======
+
+public class CollectorTele {
+    private final DcMotorEx collectorMotor;
+
+    private HardwareMap hardwareMap;
+    private Telemetry telemetry;
+>>>>>>> parent of 09c8cc8 (tele op able to score)
 
     private static final double Level1 = 2088;
     private static final double Level2 = 1931;
@@ -31,6 +38,7 @@ public class CollectorTele {
     private static final double Level5 = 1433;
     public CollectorTele(HardwareMap hardwareMap,Telemetry telemetry) {
         this.telemetry = telemetry;
+<<<<<<< HEAD
         CollectorMotor = new CachingMotor(hardwareMap.get(DcMotorEx.class, "Collector"));
         DrawbridgeServo = new CachingServo(hardwareMap.get(ServoImplEx.class, "Drawbridge"));
         DrawbridgeServo.setPwmRange(new PwmControl.PwmRange(Level5, Level1));
@@ -40,12 +48,21 @@ public class CollectorTele {
 
     public enum DrawbridgeState {
         ONE, TWO, THREE, FOUR, FIVE
+=======
+
+        collectorMotor = new CachingMotor(hardwareMap.get(DcMotorEx.class, "Collector"));
+>>>>>>> parent of 09c8cc8 (tele op able to score)
     }
 
     public enum CollectorState {
         OFF, IN, OUT
     }
 
+<<<<<<< HEAD
+=======
+    CollectorState collectorState = OFF;
+
+>>>>>>> parent of 09c8cc8 (tele op able to score)
     public void setCollectorState() {
         switch (collectorState) {
             case OFF: {
@@ -135,11 +152,11 @@ public class CollectorTele {
         collectorState = CollectorState.OUT;
     }
 
-    private void collectorOff() {CollectorMotor.setPower(0);}
+    private void collectorOff() {collectorMotor.setPower(0);}
     private void collectorIn(){
-        CollectorMotor.setPower(0.5);
+        collectorMotor.setPower(0.5);
     }
-    private void collectorOut() { CollectorMotor.setPower(-0.5);
+    private void collectorOut() { collectorMotor.setPower(-0.5);
     }
 
 }
