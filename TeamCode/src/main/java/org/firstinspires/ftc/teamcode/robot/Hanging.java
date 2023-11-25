@@ -19,14 +19,15 @@ import org.firstinspires.ftc.teamcode.utils.CachingServo;
 
 public class Hanging {
     private final DcMotorEx hangingMotor;
-    private ServoImplEx leftClimber;
-    private ServoImplEx rightClimber;
+    private final ServoImplEx leftClimber;
+    private final ServoImplEx rightClimber;
     private static final double LEFT_CLIMBER_MAX = 700;
-    private static final double LEFT_CLIMBER_MIN = 550;
-    private static final double RIGHT_CLIMBER_MAX = 2150;
-    private static final double RIGHT_CLIMBER_MIN = 2300;
+    private static final double LEFT_CLIMBER_MIN = 500;
+    private static final double RIGHT_CLIMBER_MAX = 2250;
+    private static final double RIGHT_CLIMBER_MIN = 2400;
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
+    private ServoState servoState = ServoState.LOCK;
 
     public Hanging(HardwareMap hardwareMap, Telemetry telemetry){
         this.telemetry = telemetry;
@@ -44,8 +45,6 @@ public class Hanging {
     public enum ServoState {
         LOCK, UNLOCK
     }
-
-    ServoState servoState = LOCK;
 
     public void setServoState() {
         switch (servoState) {

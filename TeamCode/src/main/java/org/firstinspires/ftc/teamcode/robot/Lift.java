@@ -96,26 +96,40 @@ public class Lift {
     }
 
     public void setLiftHeight(int liftHeight) {
-        pidController.setTarget(liftHeight);
-        double error = liftHeight - liftMotor.getCurrentPosition();
-        if (Math.abs(error) < 5){
-            error = 0;
+        if(liftMotor.getCurrentPosition() >=  (liftHeight -5 ) && liftMotor.getCurrentPosition() <= (liftHeight + 5)){
+            liftMotor.setPower(0);
+        } else {
+            pidController.setTarget(liftHeight);
+            double error = liftHeight - liftMotor.getCurrentPosition();
+            if (Math.abs(error) < 5){
+                error = 0;
+            }
+            double power = pidController.updateWithError(error) + kS;
+            if (Math.abs(error) < 25){
+                power = power/4;
+            }
+            liftMotor.setPower(power);
+            telemetry.addData("liftError", error);
+            telemetry.addData("liftPower", power);
         }
-        double power = pidController.updateWithError(error) + kS;
-        if (Math.abs(error) < 25){
-            power = power/4;
-        }
-        liftMotor.setPower(power);
-        telemetry.addData("liftError", error);
-        telemetry.addData("liftPower", power);
+//        if (Math.abs(error) <= 25) {
+//            setLiftOff();
+//        }
 
-        telemetry.addData("liftTarget", liftHeight);
-        telemetry.addData("liftPosition", liftMotor.getCurrentPosition());
+
+        telemetry.addData("Is Busy", liftMotor.isBusy());
+
+
+
     }
+
+//    private void setLiftOff(){
+//        liftMotor.setPower(0.0);
+//    }
+
 //    public void setLiftUp() {
 //        liftMotor.setPower(0.6);
 //    }
-
     public void increaseLevel(){
         levelCounter += 1;
         if (levelCounter >= 6){
@@ -165,6 +179,21 @@ public class Lift {
 //
     public void setLiftZero () {
         liftState = LiftState.ZERO;
+    }
+    public void setLiftOne (){
+        liftState = LiftState.ONE;
+    }
+    public void setLiftTwo (){
+            liftState = LiftState.TWO;
+    }
+    public void setLiftThree (){
+        liftState = LiftState.THREE;
+    }
+    public void setLiftFour (){
+        liftState = LiftState.FOUR;
+    }
+    public void setLiftFive (){
+        liftState = LiftState.FIVE;
     }
 //
 //    private void setLiftOne () {
