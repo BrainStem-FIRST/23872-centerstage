@@ -137,9 +137,9 @@ public class CollectorTele {
 
     private void collectorOff() {CollectorMotor.setPower(0);}
     private void collectorIn(){
-        CollectorMotor.setPower(0.5);
+        CollectorMotor.setPower(1);
     }
-    private void collectorOut() { CollectorMotor.setPower(-0.5);
+    private void collectorOut() { CollectorMotor.setPower(-1);
     }
 
 }

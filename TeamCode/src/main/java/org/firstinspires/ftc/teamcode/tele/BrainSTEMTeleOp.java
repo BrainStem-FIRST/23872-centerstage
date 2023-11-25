@@ -78,9 +78,9 @@ public class BrainSTEMTeleOp extends LinearOpMode {
             }
 //drone release
             if (gamepad2.a) {
-                robot.drone.setLockState();
+                robot.drone.setClaspServo();
             } else if (gamepad2.b) {
-                robot.drone.setUnlockState();
+                robot.drone.setReleaseServo();
             }
 //lift and depositor
 //            stickyButtonA.update(gamepad1.a);
@@ -92,8 +92,8 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 //            }
 
             stickyButtonA.update(gamepad1.a);
-            stickyButtonB.update(gamepad2.b);
-            if (stickyButtonB.getState()){
+            stickyButtonB.update(gamepad1.b);
+            if (stickyButtonA.getState()){
                 robot.lift.updateLevel();
                 robot.lift.increaseLevel();
             }
