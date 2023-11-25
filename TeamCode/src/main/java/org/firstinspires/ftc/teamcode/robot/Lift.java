@@ -49,6 +49,7 @@ public class Lift {
 
     public void liftState() {
         updateLevel();
+        telemetry.addData("state of lift",liftState);
         switch (liftState) {
             case ZERO: {
                setLiftHeight(levelZeroHeight);
@@ -184,55 +185,27 @@ public class Lift {
         liftState = LiftState.ONE;
     }
     public void setLiftTwo (){
-            liftState = LiftState.TWO;
+
+        liftState = LiftState.TWO;
     }
     public void setLiftThree (){
         liftState = LiftState.THREE;
     }
     public void setLiftFour (){
+
         liftState = LiftState.FOUR;
     }
     public void setLiftFive (){
         liftState = LiftState.FIVE;
     }
-//
-//    private void setLiftOne () {
-//        liftState = LiftState.ONE;
-//    }
-//    private void setLiftTwo() {
-//        liftState = LiftState.TWO;
-//    }
-//    private void setLiftThree() {
-//        liftState = LiftState.THREE;
-//    }
-//    private void setLiftFour() {
-//        liftState = LiftState.FOUR;
-//    }
-//    private void setLiftFive() {
-//        liftState = LiftState.FIVE;
-////    }
-//    private int getPosition () {
-//        return liftMotor.getCurrentPosition();
-//    }
 
 
-//public void setLiftOff () {
-//        liftMotor.setPower(0);
-//    }
+    public void setLiftOff () {
+        liftMotor.setPower(0);
+    }
 //
 //    public void setRawPower ( double power){
 //        liftMotor.setPower(power);
-//    }
-//
-//    public void setLiftZero () {
-//        liftState = LiftState.ZERO;
-//    }
-//    public void setLiftFour () {
-//        liftState = LiftState.FOUR;
-//    }
-//
-//    public void setLiftOne () {
-//        liftState = LiftState.ONE;
 //    }
 //    public int getPosition () {
 //        return liftMotor.getCurrentPosition();

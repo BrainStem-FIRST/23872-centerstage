@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.robot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.tele.StickyButton;
 
 public class BrainSTEMRobot {
     HardwareMap hardwareMap;
@@ -37,6 +38,9 @@ public class BrainSTEMRobot {
         depositor.depositorServoState(lift);
         depositor.pixelState(collector);
         lift.liftState();
+        lift.increaseLevel();
+        lift.decreaseLevel();
+        lift.updateLevel();
         drone.setServoState();
     }
 

@@ -35,7 +35,7 @@ public class BrainSTEMTeleOp extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-           drive.setDrivePowers(new PoseVelocity2d(
+            drive.setDrivePowers(new PoseVelocity2d(
                     new Vector2d(
                             -gamepad1.left_stick_y,
                             -gamepad1.left_stick_x
@@ -77,34 +77,45 @@ public class BrainSTEMTeleOp extends LinearOpMode {
                 robot.hanging.setUnlockState();
             }
 //drone release
-            if (gamepad2.a) {
-                robot.drone.setClaspServo();
-            } else if (gamepad2.b) {
-                robot.drone.setReleaseServo();
-            }
+//            if (gamepad2.a) {
+//                robot.drone.setClaspServo();
+//            } else if (gamepad2.b) {
+//                robot.drone.setReleaseServo();
+//            }
 //lift and depositor
-//            stickyButtonA.update(gamepad1.a);
+//
+            stickyButtonA.update((gamepad1.a));
+            stickyButtonB.update(gamepad1.b);
+            if (stickyButtonA.getState()) {
+                robot.lift.setLiftOne();
+            } else if (stickyButtonB.getState()) {
+                robot.lift.setLiftZero();
+            }
+
+//            stickyButtonA.update((gamepad1.a));
 //            stickyButtonB.update(gamepad1.b);
 //            if (stickyButtonA.getState()){
-//                robot.lift.setLiftOne();
-//            } else if (stickyButtonB.getState()) {
-//                robot.lift.setLiftZero();
+//                robot.lift.updateLevel();
+//                robot.lift.increaseLevel();
 //            }
-
-            stickyButtonA.update(gamepad1.a);
-            stickyButtonB.update(gamepad1.b);
-            if (stickyButtonA.getState()){
-                robot.lift.updateLevel();
-                robot.lift.increaseLevel();
+//            else if(stickyButtonB.getState()) {
+//                robot.lift.updateLevel();
+//                robot.lift.decreaseLevel();
+//            }
+//depositor for backup
+            if (gamepad1.x) {
+                robot.depositor.setScoringState();
+            } else if (gamepad1.y) {
+                robot.depositor.setRestingState();
             }
-            else if(stickyButtonB.getState()) {
-                robot.lift.updateLevel();
-                robot.lift.decreaseLevel();
-            }
-
 
             robot.update();
         }
-
     }
+
 }
+
+
+
+
+
