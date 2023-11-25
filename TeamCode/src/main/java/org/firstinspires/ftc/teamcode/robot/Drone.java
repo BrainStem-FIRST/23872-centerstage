@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.robot;
 
+
 import static org.firstinspires.ftc.teamcode.robot.Drone.ServoState.CLASP;
 import static org.firstinspires.ftc.teamcode.robot.Drone.ServoState.RELEASE;
 
@@ -13,7 +14,7 @@ public class Drone {
     private final ServoImplEx droneServo;
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
-    public ServoState servoState = Drone.ServoState.CLASP;
+    public ServoState servoState = ServoState.CLASP;
 
     public Drone(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
@@ -52,9 +53,5 @@ public class Drone {
     public void releaseServo() {
         droneServo.setPosition(0.99);
     }
+
 }
-
-
-
-
-

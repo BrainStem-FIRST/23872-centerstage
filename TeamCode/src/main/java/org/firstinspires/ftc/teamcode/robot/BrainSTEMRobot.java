@@ -14,8 +14,6 @@ public class BrainSTEMRobot {
     public Lift lift;
     public Hanging hanging;
 
-    public Drone drone;
-
     public BrainSTEMRobot (HardwareMap hardwareMap, Telemetry telemetry){
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
@@ -26,7 +24,6 @@ public class BrainSTEMRobot {
         transfer = new TransferTele(hardwareMap, telemetry);
         depositor = new Depositor(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
-        drone = new Drone(hardwareMap, telemetry);
     }
 
     public void update() {
@@ -35,13 +32,12 @@ public class BrainSTEMRobot {
         hanging.hangingState();
         hanging.setServoState();
         transfer.transferState();
-        depositor.depositorServoState(lift);
-        depositor.pixelState(collector);
+        depositor.depositorServoState();
+        depositor.pixelState();
         lift.liftState();
         lift.increaseLevel();
         lift.decreaseLevel();
         lift.updateLevel();
-        drone.setServoState();
     }
 
 }

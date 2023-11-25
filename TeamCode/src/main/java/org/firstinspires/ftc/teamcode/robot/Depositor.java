@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.utils.CachingServo;
 
 public class Depositor {
-    private Telemetry telemetry;
+    private final Telemetry telemetry;
     private HardwareMap hardwareMap;
     public DepositorServoState depositorServoState = DepositorServoState.RESTING;
     public PixelState pixelState = PixelState.DROP;
@@ -50,7 +50,7 @@ public class Depositor {
         HOLD, DROP
     }
 
-    public void pixelState(CollectorTele collectorTele) {
+    public void pixelState() {
         switch (pixelState){
             case HOLD: {
                 pixelHold();
@@ -62,20 +62,11 @@ public class Depositor {
             }
         }
     }
-    private void setDepositorState(Lift lift){
-        if (lift.liftState == Lift.LiftState.ZERO){
-            depositorServoState = RESTING;
-        } else {
-            depositorServoState = SCORING;
-        }
-    }
     private void pixelHold() {
-        telemetry.addData("PixelPosition","Hold");
         TopPixHold.setPosition(0.01);
         BottomPixHold.setPosition(0.01);
     }
     private void pixelDrop() {
-        telemetry.addData("PixelPosition","Drop");
         TopPixHold.setPosition(0.99);
         BottomPixHold.setPosition(0.99);
     }
@@ -89,8 +80,7 @@ public class Depositor {
     public void setDropState() {
         pixelState = PixelState.DROP;
     }
-    public void depositorServoState(Lift lift) {
-        setDepositorState(lift);
+    public void depositorServoState() {
         switch (depositorServoState){
             case RESTING: {
                 depositorResting();

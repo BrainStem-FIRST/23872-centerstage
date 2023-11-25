@@ -13,12 +13,12 @@ public class Lift {
     public LiftState liftState = LiftState.ZERO;
     private int levelCounter = 0;
 
-    private final static double kP = 0.08;
+    private final static double kP = 0.05;
     private final static double kI = 0.0;
     private final static double kD = 0.0;
-    private final static double kS = 0.002;
+    private final static double kS = 0.001;
     PIDController pidController = new PIDController(kP, kI, kD);
-    private final static int levelZeroHeight = 0;
+    private final static int levelZeroHeight = 25;
     private final static int levelOneHeight = 108;
     private final static int levelTwoHeight = 326;
     private final static int levelThreeHeight = 553;
@@ -37,8 +37,8 @@ public class Lift {
         pidController.setInputBounds(0, 1000);
         pidController.setOutputBounds(-1, 1);
         liftMotor = new org.firstinspires.ftc.teamcode.util.CachingMotor(hardwareMap.get(DcMotorEx.class, "Lift"));
-        liftMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        liftMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
 
@@ -122,6 +122,9 @@ public class Lift {
 
 
 
+        pidController.setTarget(liftHeight);
+        double error = liftHeight - liftMotor.getCurrentPosition();
+        liftMotor.setPower(pidController.updateWithError(error) + kS);
     }
 
 //    private void setLiftOff(){
@@ -146,7 +149,6 @@ public class Lift {
     }
 
     public void updateLevel(){
-        telemetry.addData("Level Counter", levelCounter);
         switch (levelCounter){
             case 0:
                 liftState = LiftState.ZERO;
@@ -174,6 +176,10 @@ public class Lift {
 //        liftMotor.setPower(-0.6);
 //    }
 //
+//    public void setLiftOff () {
+//        liftMotor.setPower(0);
+//    }
+//
 //    public void setRawPower (double power){
 //        liftMotor.setPower(power);
 //    }
@@ -198,18 +204,10 @@ public class Lift {
     public void setLiftFive (){
         liftState = LiftState.FIVE;
     }
-
-
     public void setLiftOff () {
         liftMotor.setPower(0);
     }
-//
-//    public void setRawPower ( double power){
-//        liftMotor.setPower(power);
-//    }
-//    public int getPosition () {
-//        return liftMotor.getCurrentPosition();
-//    }
+
 
 }
 

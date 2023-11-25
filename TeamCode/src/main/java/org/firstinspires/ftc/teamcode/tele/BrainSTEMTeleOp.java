@@ -49,13 +49,19 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 //collector
             if (gamepad1.right_trigger > 0.2) {
                 robot.collector.setCollectorIn();
+                robot.collector.setCollectorState();
                 robot.transfer.setTransferIn();
+                robot.transfer.transferState();
             } else if (gamepad1.left_trigger > 0.2) {
                 robot.collector.setCollectorOut();
+                robot.collector.setCollectorState();
                 robot.transfer.setTransferOut();
+                robot.transfer.transferState();
             } else {
                 robot.collector.setCollectorOff();
+                robot.collector.setCollectorState();
                 robot.transfer.setTransferOff();
+                robot.transfer.transferState();
             }
 
 //pixel holder
@@ -63,6 +69,12 @@ public class BrainSTEMTeleOp extends LinearOpMode {
                 robot.depositor.setDropState();
             } else if (gamepad1.left_bumper) {
                 robot.depositor.setHoldState();
+            }
+//depositor
+            if (gamepad1.x) {
+                robot.depositor.setRestingState();
+            } else if (gamepad1.y) {
+                robot.depositor.setScoringState();
             }
 //hanging wind
 //            if (gamepad2.x) {
@@ -90,6 +102,12 @@ public class BrainSTEMTeleOp extends LinearOpMode {
                 robot.lift.setLiftOne();
             } else if (stickyButtonB.getState()) {
                 robot.lift.setLiftZero();
+            }
+//lift
+            if (gamepad1.a) {
+                robot.lift.increaseLevel();
+            } else if (gamepad1.b) {
+                robot.lift.decreaseLevel();
             }
 
 //            stickyButtonA.update((gamepad1.a));
