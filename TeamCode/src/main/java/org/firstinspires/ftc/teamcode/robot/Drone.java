@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.robot;
 
-import static org.firstinspires.ftc.teamcode.robot.Hanging.ServoState.LOCK;
+import static org.firstinspires.ftc.teamcode.robot.Drone.ServoState.CLASP;
+import static org.firstinspires.ftc.teamcode.robot.Drone.ServoState.RELEASE;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
@@ -9,10 +10,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.utils.CachingServo;
 
 public class Drone {
-    private ServoImplEx droneServo;
-
+    private final ServoImplEx droneServo;
     private HardwareMap hardwareMap;
-
     private Telemetry telemetry;
     public ServoState servoState = Drone.ServoState.CLASP;
 
@@ -30,27 +29,27 @@ public class Drone {
     public void setServoState() {
         switch (servoState) {
             case CLASP: {
-                lockServo();
+                claspServo();
                 break;
             }
             case RELEASE: {
-                unlockServo();
+                releaseServo();
                 break;
             }
         }
     }
-    public void setLockState(){
+    public void setClaspServo(){
         servoState = ServoState.CLASP;
     }
 
-    public void setUnlockState(){
+    public void setReleaseServo(){
         servoState = ServoState.RELEASE;
     }
-    public void lockServo() {
+    public void claspServo() {
         droneServo.setPosition(0.01);
     }
 
-    public void unlockServo() {
+    public void releaseServo() {
         droneServo.setPosition(0.99);
     }
 }
