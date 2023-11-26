@@ -26,7 +26,7 @@ public class Depositor {
     private static final double LEFT_DEPOSITOR_MIN = 1220;
     private static final double RIGHT_DEPOSITOR_MAX = 720;
     private static final double RIGHT_DEPOSITOR_MIN = 1990;
-    private static final double TOP_PIX_HOLD_MAX = 1677;
+    private static final double TOP_PIX_HOLD_MAX = 1350;
     private static final double TOP_PIX_HOLD_MIN = 100;
     private static final double BOTTOM_PIX_HOLD_MAX = 1677;
     private static final double BOTTOM_PIX_HOLD_MIN = 100;
@@ -80,7 +80,7 @@ public class Depositor {
     public void setDropState() {
         pixelState = PixelState.DROP;
     }
-    public void depositorServoState() {
+    public void depositorServoState(Lift lift) {
         switch (depositorServoState){
             case RESTING: {
                 depositorResting();
@@ -93,7 +93,13 @@ public class Depositor {
         }
     }
 
-
+    private void setDepositorState(Lift lift){
+        if (lift.liftState == Lift.LiftState.ZERO){
+            depositorServoState = RESTING;
+        } else {
+            depositorServoState = SCORING;
+        }
+    }
     private void depositorResting(){
         LeftDepositor.setPosition(0.99);
         RightDepositor.setPosition(0.99);

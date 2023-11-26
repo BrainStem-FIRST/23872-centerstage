@@ -14,7 +14,7 @@ public class BrainSTEMRobot {
     public Lift lift;
     public Hanging hanging;
 
-    public BrainSTEMRobot (HardwareMap hardwareMap, Telemetry telemetry){
+    public BrainSTEMRobot(HardwareMap hardwareMap, Telemetry telemetry) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
 
@@ -32,13 +32,12 @@ public class BrainSTEMRobot {
         hanging.hangingState();
         hanging.setServoState();
         transfer.transferState();
-        depositor.depositorServoState();
+        depositor.depositorServoState(lift);
         depositor.pixelState();
         lift.liftState();
-        lift.increaseLevel();
-        lift.decreaseLevel();
         lift.updateLevel();
     }
 
-}
+    }
+
 

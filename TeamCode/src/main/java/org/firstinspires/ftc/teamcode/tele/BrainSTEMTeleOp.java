@@ -15,9 +15,13 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.TankDrive;
 import org.firstinspires.ftc.teamcode.robot.BrainSTEMRobot;
+import org.firstinspires.ftc.teamcode.robot.Depositor;
+import org.firstinspires.ftc.teamcode.robot.Lift;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import kotlin.math.UMathKt;
 
 @TeleOp (name = "TeleOp", group = "Robot")
 public class BrainSTEMTeleOp extends LinearOpMode {
@@ -35,12 +39,24 @@ public class BrainSTEMTeleOp extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            drive.setDrivePowers(new PoseVelocity2d(
-                    new Vector2d(
-                            -gamepad1.left_stick_y,
-                            -gamepad1.left_stick_x
-                    ),
-                    -gamepad1.right_stick_x * 0.75));
+
+            if (robot.depositor.depositorServoState == Depositor.DepositorServoState.SCORING ){
+                drive.setDrivePowers(new PoseVelocity2d(
+                        new Vector2d(
+                                -gamepad1.left_stick_y * 0.4,
+                                -gamepad1.left_stick_x * 0.4
+                        ),
+                        -gamepad1.right_stick_x * 0.4));
+
+
+            } else {
+                drive.setDrivePowers(new PoseVelocity2d(
+                        new Vector2d(
+                                -gamepad1.left_stick_y,
+                                -gamepad1.left_stick_x
+                        ),
+                        -gamepad1.right_stick_x * 0.75));
+            }
 
             drive.updatePoseEstimate();
 
@@ -95,45 +111,28 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 //                robot.drone.setReleaseServo();
 //            }
 //lift and depositor
-//
-            stickyButtonA.update((gamepad1.a));
-            stickyButtonB.update(gamepad1.b);
-            if (stickyButtonA.getState()) {
-                robot.lift.setLiftOne();
-            } else if (stickyButtonB.getState()) {
-                robot.lift.setLiftZero();
-            }
-//lift
-            if (gamepad1.a) {
+
+            stickyButtonRightBumper.update(gamepad2.right_bumper);
+            stickyButtonLeftBumper.update(gamepad2.left_bumper);
+            if (stickyButtonRightBumper.getState()) {
                 robot.lift.increaseLevel();
-            } else if (gamepad1.b) {
+                robot.lift.updateLevel();
+                robot.depositor.setScoringState();
+                telemetry.addLine("Right Bumper");
+            } else if (stickyButtonLeftBumper.getState()) {
                 robot.lift.decreaseLevel();
+                robot.lift.updateLevel();
+                robot.depositor.setRestingState();
+                telemetry.addLine("Left Bumper");
             }
 
-//            stickyButtonA.update((gamepad1.a));
-//            stickyButtonB.update(gamepad1.b);
-//            if (stickyButtonA.getState()){
-//                robot.lift.updateLevel();
-//                robot.lift.increaseLevel();
-//            }
-//            else if(stickyButtonB.getState()) {
-//                robot.lift.updateLevel();
-//                robot.lift.decreaseLevel();
-//            }
-//depositor for backup
-            if (gamepad1.x) {
-                robot.depositor.setScoringState();
-            } else if (gamepad1.y) {
-                robot.depositor.setRestingState();
+            if (gamepad1.a) {
+                robot.lift.setLiftZero();
+                telemetry.addLine("LiftZero");
+            }
             }
 
             robot.update();
         }
     }
-
-}
-
-
-
-
 
