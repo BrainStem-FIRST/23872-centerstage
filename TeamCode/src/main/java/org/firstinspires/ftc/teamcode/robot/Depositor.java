@@ -21,7 +21,6 @@ public class Depositor {
     private final ServoImplEx RightDepositor;
     private final ServoImplEx TopPixHold;
     private final ServoImplEx BottomPixHold;
-
     private static final double LEFT_DEPOSITOR_MAX = 2470;
     private static final double LEFT_DEPOSITOR_MIN = 1220;
     private static final double RIGHT_DEPOSITOR_MAX = 720;
@@ -62,7 +61,7 @@ public class Depositor {
             }
         }
     }
-    private void pixelHold() {
+    public void pixelHold() {
         TopPixHold.setPosition(0.01);
         BottomPixHold.setPosition(0.01);
     }
