@@ -9,11 +9,12 @@ public class Lift {
     private HardwareMap hardwareMap;
     private final Telemetry telemetry;
     public LiftState liftState = LiftState.ZERO;
-    private int levelCounter = 0;
+    public int levelCounter = 0;
 
 
 
-    private final static double kP = 0.08;
+    private final static double kP = 0.85;
+    //kP value not working.. needs tuning
     private final static double kI = 0.0;
     private final static double kD = 0.0;
     private final static double kS = 0.002;
@@ -31,8 +32,9 @@ public class Lift {
         pidController.setInputBounds(0, 1000);
         pidController.setOutputBounds(-1, 1);
         liftMotor = new org.firstinspires.ftc.teamcode.util.CachingMotor(hardwareMap.get(DcMotorEx.class, "Lift"));
-        liftMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        liftMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public enum LiftState {

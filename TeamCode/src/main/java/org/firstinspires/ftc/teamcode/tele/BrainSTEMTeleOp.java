@@ -25,6 +25,8 @@ import kotlin.math.UMathKt;
 
 @TeleOp (name = "TeleOp", group = "Robot")
 public class BrainSTEMTeleOp extends LinearOpMode {
+    private boolean retractionInProgress = false;
+    private ElapsedTime retractionTime = new ElapsedTime();
     @Override
     public void runOpMode() {
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
@@ -88,9 +90,21 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 
 //pixel holder
             if (gamepad1.right_bumper) {
+                retractionTime.reset();
+                retractionInProgress = true;
                 robot.depositor.setDropState();
             } else if (gamepad1.left_bumper) {
                 robot.depositor.setHoldState();
+            }
+
+            if (retractionInProgress){
+                if (retractionTime.seconds() > 0.5){
+                    robot.depositor.setRestingState();
+                }
+                if (retractionTime.seconds() > 1.0){
+                    robot.lift.levelCounter = 0;
+                    retractionInProgress = false;
+                }
             }
 //depositor
             if (gamepad1.x) {
