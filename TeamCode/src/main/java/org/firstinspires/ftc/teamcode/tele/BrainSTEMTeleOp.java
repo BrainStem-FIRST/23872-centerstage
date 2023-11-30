@@ -26,7 +26,7 @@ import kotlin.math.UMathKt;
 @TeleOp (name = "TeleOp", group = "Robot")
 public class BrainSTEMTeleOp extends LinearOpMode {
     private boolean retractionInProgress = false;
-    private ElapsedTime retractionTime = new ElapsedTime();
+    private final ElapsedTime retractionTime = new ElapsedTime();
     @Override
     public void runOpMode() {
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
@@ -36,6 +36,8 @@ public class BrainSTEMTeleOp extends LinearOpMode {
         StickyButton stickyButtonLeftBumper = new StickyButton();
         StickyButton stickyButtonA = new StickyButton();
         StickyButton stickyButtonB = new StickyButton();
+        ToggleButton toggleButtonRightTrigger = new ToggleButton();
+        ToggleButton toggleButtonLeftTrigger = new ToggleButton();
         ElapsedTime elapsedTime = new ElapsedTime();
 
 
@@ -71,12 +73,14 @@ public class BrainSTEMTeleOp extends LinearOpMode {
             telemetry.addData("Tele Collector State", "TEST");
             telemetry.update();
 //collector
-            if (gamepad1.right_trigger > 0.2) {
+            toggleButtonLeftTrigger.update(gamepad1.left_trigger > 0.2);
+            toggleButtonRightTrigger.update(gamepad1.right_trigger > 0.2);
+            if (toggleButtonRightTrigger.getState()) {
                 robot.collector.setCollectorIn();
                 robot.collector.setCollectorState();
                 robot.transfer.setTransferIn();
                 robot.transfer.transferState();
-            } else if (gamepad1.left_trigger > 0.2) {
+            } else if (toggleButtonLeftTrigger.getState()) {
                 robot.collector.setCollectorOut();
                 robot.collector.setCollectorState();
                 robot.transfer.setTransferOut();
@@ -95,6 +99,8 @@ public class BrainSTEMTeleOp extends LinearOpMode {
                 robot.depositor.setDropState();
             } else if (gamepad1.left_bumper) {
                 robot.depositor.setHoldState();
+                toggleButtonRightTrigger.update(false);
+                toggleButtonLeftTrigger.update(false);
             }
 
             if (retractionInProgress){
@@ -104,6 +110,7 @@ public class BrainSTEMTeleOp extends LinearOpMode {
                 if (retractionTime.seconds() > 1.0){
                     robot.lift.levelCounter = 0;
                     retractionInProgress = false;
+                    robot.collector.setCollectorOff();
                 }
             }
 //depositor
@@ -164,7 +171,7 @@ public class BrainSTEMTeleOp extends LinearOpMode {
 //            }
 
             robot.update();
-
+            telemetry.addData("State of right trigger",toggleButtonRightTrigger.getState());
         }
     }
 }
